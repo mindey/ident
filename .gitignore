@@ -1,0 +1,4 @@
+.env
+ident.egg-info/
+.pyc
+__pycache__/
