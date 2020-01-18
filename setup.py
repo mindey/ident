@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='ident',
-    version='0.0.1',
+    version='0.1',
     description='Identify with challenge messsage and SSH key.',
     url='https://github.com/mindey/ident',
     author='Mindey',
