@@ -1,11 +1,11 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='ident',
-    version='0.2',
+    version='1.0',
     description='Identify with challenge messsage and SSH key.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -13,14 +13,18 @@ setup(
     author='Mindey',
     author_email='~@mindey.com',
     license='MIT',
-    packages=['ident'],
+    packages = find_packages(exclude=['docs', 'tests*']),
     install_requires=[
-        "cryptography"
+        'cryptography',
     ],
-    entry_points={
-        'console_scripts': [
-            'ident=ident.cli:verify',
-        ],
+    extras_require = {
+        'test': ['coverage', 'pytest', 'pytest-cov'],
     },
-    zip_safe=False
+    zip_safe=False,
+    entry_points = {
+        'console_scripts': [
+            'ident=ident.cli:verify'
+        ],
+    }
 )
+
