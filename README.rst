@@ -35,7 +35,7 @@ sign:
 Usage
 =====
 
-Steps
+Flow
 -----
 
 1. Server generates ``MyRandomChallengeMessage``, and displays it in a
