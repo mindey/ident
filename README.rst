@@ -1,6 +1,8 @@
 Ident
 =====
 
+`pip install ident`
+
 Simple syntax sugar for logging on users to your website without using
 password, just with their ``~/.ssh`` keypair, that they use to sign-in
 to servers.
