@@ -1,12 +1,16 @@
 from setuptools import setup
 
+with open('README.md', 'r', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name='ident',
-    version='0.1',
+    version='0.2',
     description='Identify with challenge messsage and SSH key.',
+    long_description=long_description,
     url='https://github.com/mindey/ident',
     author='Mindey',
-    author_email='mindey@qq.com',
+    author_email='~@mindey.com',
     license='MIT',
     packages=['ident'],
     install_requires=[
