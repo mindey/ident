@@ -17,7 +17,7 @@ public key ``~/.ssh/id_rsa.pub`` after ``:`` symbol
 
    result = sign('MyChallengeMessage')
 
-**Note.** There is a colon (‘:’) in the string produced, which separates
+**Note.** There is a colon (``:``) in the string produced, which separates
 the base64-encoded signature (left) from the public key (right).
 
 Verifying
