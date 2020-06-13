@@ -8,6 +8,7 @@ setup(
     version='0.2',
     description='Identify with challenge messsage and SSH key.',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/mindey/ident',
     author='Mindey',
     author_email='~@mindey.com',
