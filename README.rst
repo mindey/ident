@@ -60,4 +60,4 @@ Steps
 
    $ solve MyRandomChallengeMessage
 
-3. Serve
+3. Server uses `ident.verify()` to recognize that the random message was signed with the public key provided, and save that public key as a user.
