@@ -2,7 +2,9 @@
 
 Simple syntax sugar for logging on users to your website without using password, just with their `~/.ssh` keypair, that they use to sign-in to servers.
 
-## Signing a message with your own `~/.ssh/id_rsa` key, and providing your public key `~/.ssh/id_rsa.pub` after `:` symbol:
+## Signing
+
+Sign a message with your own `~/.ssh/id_rsa` key, and providing your public key `~/.ssh/id_rsa.pub` after `:` symbol
 ```python
 from ident import sign
 
@@ -10,7 +12,10 @@ result = sign('MyChallengeMessage')
 ```
 **Note.** There is a colon (':') in the string produced, which separates the base64-encoded signature (left) from the public key (right).
 
-## Verifying the signed message, with public key included after the `:` sign:
+## Verifying
+
+Verify the signed message, with public key included after the `:` sign:
+
 ```python
 from ident import verify
 
