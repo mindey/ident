@@ -1,5 +1,5 @@
 Ident
-=====
+=======
 
 Simple syntax sugar for logging on users to your website without using password, just with their `~/.ssh` keypair, that they use to sign-in to servers.
 
@@ -26,7 +26,7 @@ verify('cpvVd42+ugHiw/7FThW3qzywUEweRNGM9ISzGWgU0R5OajQ0dAZmkxDJeTf3Cxr8f3cQZN5t
 ```
 
 Usage
-=====
+=======
 
 Steps
 -----
