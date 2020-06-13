@@ -33,7 +33,7 @@ Steps
 
 1. Server generates `MyRandomChallengeMessage`, and displays it in a box, asking user to copy it, and provide digest of the `$ solve` command, which they can install by adding the below function to `~/.bashrc` or `~/.zshrc`:
 
-```
+```bash
 solve(){
     if [ -z "$1" ]
       then
