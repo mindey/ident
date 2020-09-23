@@ -7,6 +7,9 @@ Simple syntax sugar for logging on users to your website without using
 password, just with their ``~/.ssh`` keypair, that they use to sign-in
 to servers.
 
+.. image:: https://wiki.mindey.com/shared/shots/4ea36c57ab5361af7e0576ab5.png
+   :target: https://wiki.mindey.com/shared/shots/d3639065aab62d04931c78ddc-python-ident.mp4
+
 Signing
 -------
 
