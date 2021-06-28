@@ -47,7 +47,8 @@ def verify(challenge_response):
         if challenge_recovered is not None:
             return {
                 'success': True,
-                'status': 'Verification successful.',
+                'status': 'Message recovered.',
+                'info': 'Check if it matches the challenge message.',
                 'recovered_challenge_message': challenge_recovered,
                 'key': keyprint,
             }
@@ -55,6 +56,7 @@ def verify(challenge_response):
             return {
                 'success': False,
                 'status': 'Verification failed.',
+                'info': 'Could not succeed with command "base64 -d -w 0 | openssl rsautl -verify -inkey".',
                 'recovered_challenge_message': challenge_recovered or 'UNKNOWN',
                 'key': keyprint,
             }
