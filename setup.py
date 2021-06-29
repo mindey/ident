@@ -5,7 +5,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 setup(
     name='ident',
-    version='1.0',
+    version='1.0.1',
     description='Identify with challenge messsage and SSH key.',
     long_description=long_description,
     # long_description_content_type='text/markdown',
@@ -23,7 +23,8 @@ setup(
     zip_safe=False,
     entry_points = {
         'console_scripts': [
-            'ident=ident.cli:verify'
+            'ident=ident.cli:verify',
+            'verify=ident.commands.verify:main'
         ],
     }
 )
