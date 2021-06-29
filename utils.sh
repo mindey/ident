@@ -16,7 +16,7 @@ dhash() {
     # SHA256 hashing directory or file .manifest
     if [[ -d $1 ]]; then
         # Note: https://worklifenotes.com/2020/03/05/get-sha256-hash-on-a-directory/
-        dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | sed "s~$dir~~g" | LC_ALL=C sort -d > .manifest
+        dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | LC_ALL=C sort -d > .manifest
         cat .manifest | sha256sum | awk '{print $1}'
     elif [[ -f $1 ]]; then
         cat $1 | sha256sum | awk '{print $1}' > .manifest
