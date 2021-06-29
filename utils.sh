@@ -29,7 +29,7 @@ dhash() {
 }
 
 sign() {
-    # RSA signing file or folder .manifest hash to .sign file, and saving signatures SHA256 sum as its name.
+    # RSA signing file or folder .manifest hash to .sign file, and saving SHA256 of the signatures as its name.
     if [ -z "$1" ]
       then
         echo "No arguments supplied"
