@@ -1,14 +1,21 @@
 import os
+import sys
 import base64
 import hashlib
 import tempfile
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 
+if sys.platform == "darwin":
+    w0 = ''
+else:
+    'base64 command parameter'
+    w0 = ' -w0'
 
 def sign(challenge_message):
+    command = 'echo "%s" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64'+w0+' && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64'+w0
     return os.popen(
-        'echo "%s" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64 -w 0 && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64 -w 0' % (challenge_message,)
+        command % (challenge_message,)
     ).read().rstrip()
 
 def verify(challenge_response):
@@ -38,8 +45,9 @@ def verify(challenge_response):
         try:
             f.write(pemkey)
             f.seek(0)
+            command = 'echo "%s" | base64 -d'+w0+' | openssl rsautl -verify -inkey %s -pubin'
             challenge_recovered = os.popen(
-                'echo "%s" | base64 -d -w 0 | openssl rsautl -verify -inkey %s -pubin' % (sig, f.name)
+                command % (sig, f.name)
             ).read().rstrip()
         finally:
             f.close()
@@ -56,7 +64,7 @@ def verify(challenge_response):
             return {
                 'success': False,
                 'status': 'Verification failed.',
-                'info': 'Could not succeed with command "base64 -d -w 0 | openssl rsautl -verify -inkey".',
+                'info': 'Could not succeed with command "openssl rsautl -verify -inkey".',
                 'recovered_challenge_message': challenge_recovered or 'UNKNOWN',
                 'key': keyprint,
             }
