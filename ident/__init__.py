@@ -8,9 +8,11 @@ from cryptography.hazmat.primitives import serialization
 
 if sys.platform == "darwin":
     w0 = ''
+    d3 = ' -D'
 else:
     'base64 command parameter'
     w0 = ' -w0'
+    d3 = ' -d'
 
 def sign(challenge_message):
     command = 'echo "%s" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64'+w0+' && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64'+w0
@@ -45,7 +47,7 @@ def verify(challenge_response):
         try:
             f.write(pemkey)
             f.seek(0)
-            command = 'echo "%s" | base64 -d'+w0+' | openssl rsautl -verify -inkey %s -pubin'
+            command = 'echo "%s" | base64'+d3+w0+' | openssl rsautl -verify -inkey %s -pubin'
             challenge_recovered = os.popen(
                 command % (sig, f.name)
             ).read().rstrip()
