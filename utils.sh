@@ -69,13 +69,20 @@ sign() {
             if [ "$verbose" = true ]; then
                 echo "\n4. The SHA256 of $HASH.sign is:\n $SHA"
             fi
-            if [[ $target != $SHA ]]; then
-                mv $target $SHA
-            fi
-            if [ "$verbose" = true ]; then
-                echo "\nSaving it by renaming PATH -> '$SHA'."
-                echo "Now, the folder name contains a proof of signatures to be saved to blockchain, but before it"
-                echo "you can verify the sigining integrity by the verify command from (pip install ident) package."
+
+            # Do you want to rename folder to final hash value for verification?
+            echo -n "Rename folder to the hash value for final verification? [y/N] "
+            read rename
+
+            if [ "$rename" = "Y" ]; then
+                if [[ $target != $SHA ]]; then
+                    mv $target $SHA
+                fi
+                if [ "$verbose" = true ]; then
+                    echo "\nSaving it by renaming PATH -> '$SHA'."
+                    echo "Now, the folder name contains a proof of signatures to be saved to blockchain, but before it"
+                    echo "you can verify the sigining integrity by the verify command from (pip install ident) package."
+                fi
             fi
             ls .
         else
