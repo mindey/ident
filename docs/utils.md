@@ -20,7 +20,7 @@ The `sign` function allows to produce the manifest (`.manifest` containing sha25
 
 to produce signatures.
 
-In MacOS:
+### In MacOS:
 
 1. Install [XCode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/), then:
 
@@ -38,7 +38,7 @@ Now, you can run:
 
 to produce signatures.
 
-In Windows:
+### In Windows:
 
 1. Install [git-bash](https://gitforwindows.org/) on Windows
 
@@ -58,13 +58,15 @@ to produce signatures in the `.sign` file.
 
 ## Final verification.
 
-Once you have accumulated all the signatures, and want to do final verification of the signing integrity, answer "Y" to the question at the end:
+`pip install ident`
+
+Once you have accumulated all the signatures, and want to do final verification of the signing integrity, answer `"Y"` to the question at the end:
 
 `Rename folder to the hash value for final verification? [y/N] Y`
 
 Then, the folder or file signed will be renamed, and you can run the `verify` command from the Python3 `pip install ident` package, like so:
 
-`verify -d <folder-or-file> -s <signature-file>.sig
+`verify -d <folder-or-file> -s <signature-file>.sig`
 
 ### For example:
 
