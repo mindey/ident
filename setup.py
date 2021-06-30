@@ -5,7 +5,7 @@ with open('README.rst', 'r', encoding='utf-8') as f:
 
 setup(
     name='ident',
-    version='1.0.1',
+    version='1.0.2',
     description='Identify with challenge messsage and SSH key.',
     long_description=long_description,
     # long_description_content_type='text/markdown',

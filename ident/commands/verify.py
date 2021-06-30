@@ -85,14 +85,14 @@ def main():
             print(f'- {name}: [NO]')
             successes_list += [False]
 
-        if all(successes_list):
-            print("All signatures are valid.")
-            print(f"\nFinal hash is correct, and is as folder's name:\n{DIR}")
-            print("(It is safe to write it to blockchain, as proof of data witness.)")
-        elif any(successes_list):
-            print("Not all signatures are valid.")
-        else:
-            print("No valid signatures found.")
+    if all(successes_list):
+        print("All signatures are valid.")
+        print(f"\nFinal hash is correct, and is as folder's name:\n{DIR}")
+        print("(It is safe to write it to blockchain, as proof of data witness.)")
+    elif any(successes_list):
+        print("Not all signatures are valid.")
+    else:
+        print("No valid signatures found.")
 
 if __name__ == '__main__':
     main()
