@@ -7,7 +7,7 @@ solve(){
         if [ "$(uname)" != "Darwin" ]; then
             echo "$1" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64 -w0 && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64 -w0
         else
-            echo "$1" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64 && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64
+            echo "$1" | openssl rsautl -sign -inkey ~/.ssh/id_rsa | base64 | tr -d '\n' && echo -n ":" && cat ~/.ssh/id_rsa.pub | base64
         fi
     fi
 }
