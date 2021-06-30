@@ -1,8 +1,8 @@
 # Signing file and directory manifests
 
-The repository root contains the file `[utils.sh][https://raw.githubusercontent.com/mindey/ident/master/utils.sh]`, that contains `sign`, `dhash` and `solve` functions.
+The repository root contains the file [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh), that contains `sign`, `dhash` and `solve` functions.
 
-The `sign` function allows to produce directory or file manifest (`.manifest`) and append its signature to the `.sign` file named with sha256 checksum of the `.manifest` file. It is useful when multiple parties want to create a list of signatures (`.sign`) file, proving their identity witness of folder or file content.
+The `sign` function allows to produce the manifest (`.manifest` containing sha256 checksums) of target `<folder-or-file>`, and append one's own key's (`~/.ssh/id_rsa`) signature to the `.sign` file named with sha256 checksum of the `.manifest` file. It is useful when multiple parties want to create a list of signatures (`.sign`) file, proving their identity witness of folder or file content.
 
 ## Usage
 
