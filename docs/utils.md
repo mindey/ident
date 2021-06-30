@@ -10,7 +10,7 @@ The `sign` function allows to produce the manifest (`.manifest` containing sha25
 
 1. Generate RSA keypair by:
 
-`ssh-keygen`
+`ssh-keygen` (if you don't already have one)
 
 2. Add the utils.sh content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
@@ -28,7 +28,7 @@ to produce signatures.
 
 2. Generate RSA keypair by:
 
-`ssh-keygen`
+`ssh-keygen` (if you don't already have one)
 
 3. Add the utils.sh content into `~/.profile` and source it (run `. ~/.profile`), or alternatively -- reopen terminal.
 
@@ -43,7 +43,8 @@ to produce signatures.
 1. Install [git-bash](https://gitforwindows.org/) on Windows
 
 2. Generate RSA keypair by:
-`ssh-keygen -m pem`
+
+`ssh-keygen -m pem` (if you don't already have one)
 
 (`-m` parameter is important, it doesn't work otherwise generated keys)
 
