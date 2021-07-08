@@ -12,7 +12,7 @@ The `sign` function allows to produce the manifest (`.manifest` containing sha25
 
 `ssh-keygen` (if you don't already have one)
 
-2. Add the utils.sh content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
+2. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
 3. Now, you can run:
 
@@ -30,7 +30,7 @@ to produce signatures.
 
 `ssh-keygen` (if you don't already have one)
 
-3. Add the utils.sh content into `~/.profile` and source it (run `. ~/.profile`), or alternatively -- reopen terminal.
+3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.profile` and source it (run `. ~/.profile`), or alternatively -- reopen terminal.
 
 Now, you can run:
 
@@ -48,7 +48,7 @@ to produce signatures.
 
 (`-m` parameter is important, it doesn't work otherwise generated keys)
 
-3. Add the utils.sh content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
+3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
 Now, you can run:
 
