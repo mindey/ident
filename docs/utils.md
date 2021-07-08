@@ -1,6 +1,6 @@
 # Signing file and directory manifests
 
-**VIDEO EXPLANATION: https://www.youtube.com/watch?v=_uYRIrkq-KE&t=438s**
+**VIDEO EXPLANATION: https://youtu.be/_uYRIrkq-KE**
 
 The repository root contains the file [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh), that contains `sign`, `dhash` and `solve` functions.
 
