@@ -90,3 +90,11 @@ sign() {
         fi
     fi
 }
+
+zipin() {
+    7za a -tzip -p -mem=AES256 "$1" "$2"
+}
+
+zipout() {
+    7za x "$1"
+}
