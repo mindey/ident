@@ -43,6 +43,9 @@ to produce signatures.
 
 3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.profile` and source it (run `. ~/.profile`), or alternatively -- reopen terminal.
 
+For [BASH](https://www.gnu.org/software/bash/) users:
+- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.bashrc`
+
 Now, you can run:
 
 `sign <folder-or-file>`
@@ -60,6 +63,9 @@ to produce signatures.
 (`-m` parameter is important, it doesn't work otherwise generated keys)
 
 3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
+
+For [BASH](https://www.gnu.org/software/bash/) users:
+- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.bashrc`
 
 Now, you can run:
 
