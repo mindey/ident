@@ -12,13 +12,18 @@ The `sign` function allows to produce the manifest (`.manifest` containing sha25
 
 1. Generate RSA keypair by:
 
-`ssh-keygen` (if you don't already have one)
+`ssh-keygen -m pem` (if you don't already have one)
 
 2. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
-Convenience for [ZSH](https://ohmyz.sh/) users:
+For [ZSH](https://ohmyz.sh/) users:
 - wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.zshrc`
 - curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.zshrc`
+
+For [BASH](https://www.gnu.org/software/bash/) users:
+- wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.bashrc`
+- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.bashrc`
+
 
 3. Now, you can run:
 
@@ -34,7 +39,7 @@ to produce signatures.
 
 2. Generate RSA keypair by:
 
-`ssh-keygen` (if you don't already have one)
+`ssh-keygen -m pem` (if you don't already have one)
 
 3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.profile` and source it (run `. ~/.profile`), or alternatively -- reopen terminal.
 
