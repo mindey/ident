@@ -17,12 +17,12 @@ The `sign` function allows to produce the manifest (`.manifest` containing sha25
 2. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
 For [ZSH](https://ohmyz.sh/) users:
-- wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.zshrc`
-- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.zshrc`
+- wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.zshrc`
+- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.zshrc`
 
 For [BASH](https://www.gnu.org/software/bash/) users:
-- wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.bashrc`
-- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo "\n# Signing #\n. ~/.sign.sh" >> ~/.bashrc`
+- wget: `wget -Oq- https://raw.githubusercontent.com/mindey/ident/master/utils.sh -O ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.bashrc`
+- curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.bashrc`
 
 
 3. Now, you can run:
