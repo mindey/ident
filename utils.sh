@@ -76,7 +76,12 @@ sign() {
 
             if [ "$rename" = "Y" ]; then
                 if [[ $target != $SHA ]]; then
-                    mv $target $SHA
+                    if [[ -d $target ]]; then
+                        mv $target $SHA
+                    elif [[ -f $target ]]; then
+                        mkdir $SHA
+                        mv $target $SHA
+                    fi
                 fi
                 if [ "$verbose" = true ]; then
                     echo "\nSaving it by renaming PATH -> '$SHA'."
