@@ -64,6 +64,8 @@ to produce signatures.
 
 3. Add the  [utils.sh](https://raw.githubusercontent.com/mindey/ident/master/utils.sh) content into `~/.bashrc` and source it (run `. ~/.bashrc`), or alternatively -- reopen terminal.
 
+4. Disable Thumbs.db, as described in [here](https://www.sitepoint.com/switch-off-thumbs-db-in-windows/).
+
 For [BASH](https://www.gnu.org/software/bash/) users:
 - curl: `curl https://raw.githubusercontent.com/mindey/ident/master/utils.sh -o ~/.sign.sh && chmod a+x ~/.sign.sh && echo ". ~/.sign.sh" >> ~/.bashrc`
 
