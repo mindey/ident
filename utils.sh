@@ -71,10 +71,11 @@ sign() {
             fi
 
             # Do you want to rename folder to final hash value for verification?
-            echo -n "Rename folder to the hash value for final verification? [y/N] "
+            echo -n "Rename folder to the value of final hash? [y/N] "
             read rename
 
             if [ "$rename" = "Y" ]; then
+
                 if [[ $target != $SHA ]]; then
                     if [[ -d $target ]]; then
                         mv $target $SHA
@@ -89,6 +90,23 @@ sign() {
                     echo "you can verify the sigining integrity by the verify command from (pip install ident) package."
                 fi
             fi
+
+            # Do you want to append text-label to the folder name?
+            echo -n "Folder to store results [.]: "
+            read folder
+
+            if [[ -z $folder ]]; then
+            else
+                mkdir $folder
+                if [ "$rename" = "Y" ]; then
+                    mv $SHA $folder
+                else
+                    mv $target $folder
+                fi
+                mv .manifest $folder
+                mv $FILE $folder
+            fi
+
             ls .
         else
             echo "Could not compute dhash of PATH. (dhash returned NONE)"
