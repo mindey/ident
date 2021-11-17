@@ -115,7 +115,8 @@ sign() {
 }
 
 zipin() {
-    7za a -tzip -p -mem=AES256 "$1" "$2"
+    FILE=$(echo "$1.zip")
+    7za a -tzip -p -mem=AES256 "$FILE" "$1"
 }
 
 zipout() {
