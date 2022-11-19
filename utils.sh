@@ -1,4 +1,12 @@
-solve(){
+sha256digest() {
+    if [ "$(uname)" != "Darwin" ]; then
+        echo $(shasum -a 256 $1)
+    else
+        echo $(sha256sum $1)
+    fi
+}
+
+solve() {
     # RSA signing input challenge string.
     if [ -z "$1" ]
       then
@@ -16,11 +24,15 @@ dhash() {
     # SHA256 hashing directory or file .manifest
     if [[ -d $1 ]]; then
         # Note: https://worklifenotes.com/2020/03/05/get-sha256-hash-on-a-directory/
-        dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | LC_ALL=C sort -d > .manifest
-        cat .manifest | sha256sum | awk '{print $1}'
+        if [ "$(uname)" != "Darwin" ]; then
+            dir=$1; find "$dir" -type f -exec shasum -a 256 {} \; | awk '{print $1}' | LC_ALL=C sort -d > .manifest
+        else
+            dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | LC_ALL=C sort -d > .manifest
+        fi
+        cat .manifest | sha256digest | awk '{print $1}'
     elif [[ -f $1 ]]; then
-        cat $1 | sha256sum | awk '{print $1}' > .manifest
-        cat .manifest | sha256sum | awk '{print $1}'
+        cat $1 | sha256digest | awk '{print $1}' > .manifest
+        cat .manifest | sha256digest | awk '{print $1}'
     elif [[ -z $1 ]]; then
         echo "NONE"
     else
@@ -51,7 +63,7 @@ sign() {
         if [ $HASH != "NONE" ]; then
             if [ "$verbose" = true ]; then
                 echo "1. Manifest file .manifest of PATH content was generated:"
-                echo "HASH = sha256sum .manifest = $HASH\n"
+                echo "HASH = SHA256 .manifest = $HASH\n"
             fi
             WHO="$(whoami)@$(hostname)"
             SIGN=$(solve $HASH)
@@ -65,7 +77,7 @@ sign() {
             if [ "$verbose" = true ]; then
                 echo "3. This signature prefixed with $WHO, was added to $HASH.sign file."
             fi
-            SHA=$(cat $FILE | sha256sum | awk '{print $1}')
+            SHA=$(cat $FILE | sha256digest | awk '{print $1}')
             if [ "$verbose" = true ]; then
                 echo "\n4. The SHA256 of $HASH.sign is:\n $SHA"
             fi
@@ -107,7 +119,42 @@ sign() {
                 mv $FILE $folder
             fi
 
-            ls .
+            #ls .
+
+            # Do you want to save the hash to blockchain?
+            echo -n "Do you want to store the hash to blockchain: [y/N] "
+            read saveit
+
+            if [[ -z $saveit ]]; then
+
+                echo "Not saving for now. Hash value: $SHA"
+
+            elif [ "$saveit" = "Y" ]; then
+
+                echo "Choose a blockchain from the ones below:"
+                echo " - [1] Solana (mainnet)"
+                echo -n "Enter ID from above "
+                read chain
+
+                if [ -z "$chain" ]; then
+                  echo "No chain selected. Skipping. You can manually save it by bsave MSG"
+                fi
+
+                if [ "$chain" = "1" ]; then
+                    # 1. Solana Mainnet #
+                    local result=$(solana config set --url https://api.mainnet-beta.solana.com)
+                    local address=$(solana address)
+                    local tx=$(solana transfer --allow-unfunded-recipient --with-memo $SHA $address 0.0)
+                    local txid=${tx##*: }
+                    echo "\nThe hash $SHA"
+                    echo "saved to transaction:"
+                    echo "  https://solscan.io/tx/$txid"
+                else
+                    echo "Chosen chain isn't supported. Quitting. .sign hash value: $SHA"
+                fi
+
+            fi
+
         else
             echo "Could not compute dhash of PATH. (dhash returned NONE)"
         fi
