@@ -15,7 +15,7 @@ setup(
     license='MIT',
     packages = find_packages(exclude=['docs', 'tests*']),
     install_requires=[
-        'cryptography==37.0.4', # because later versions require rust
+        'cryptography==38.0.3', # because later versions require rust
     ],
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
