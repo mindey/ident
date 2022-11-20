@@ -7,6 +7,7 @@ sha256digest() {
 }
 
 solve() {
+    # Generate keypair with "ssh-keygen -m pem" (must use PKCS#8 format)
     # RSA signing input challenge string.
     if [ -z "$1" ]
       then
