@@ -83,8 +83,12 @@ sign() {
             fi
 
             # Do you want to rename folder to final hash value for verification?
-            echo -n "Rename folder to the value of final hash? [y/N] "
+            echo -n "Rename folder to the value of final hash? [Y/n] "
             read rename
+
+            if [[ -z $rename ]]; then
+                rename="Y"
+            fi
 
             if [ "$rename" = "Y" ]; then
 
@@ -104,8 +108,17 @@ sign() {
             fi
 
             # Do you want to append text-label to the folder name?
-            echo -n "Folder to store results [.]: "
-            read folder
+            echo -n "Are you the first party signing this data? [y/N] "
+            read ifirst
+
+            if [[ -z $ifirst ]]; then
+                folder=""
+            else
+                if [ "$ifirst" = "Y" ]; then
+                    echo -n "Give a name to folder to store all results: "
+                    read folder
+                fi
+            fi
 
             if [[ -z $folder ]]; then
             else
@@ -118,7 +131,6 @@ sign() {
                 mv .manifest $folder
                 mv $FILE $folder
             fi
-
             #ls .
 
             # Do you want to save the hash to blockchain?
