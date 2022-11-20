@@ -31,22 +31,26 @@ dhash() {
         else
             dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | LC_ALL=C sort -d > $NAME.manifest
         fi
-        cat $NAME.manifest | sha256digest | awk '{print $1}'
+        local FINAL=$(cat $NAME.manifest | sha256digest | awk '{print $1}')
+        mv $NAME.manifest $NAME.$FINAL.manifest
+        echo $FINAL
 
         if [[ -z $2 ]]; then
         else
             mkdir -p $2
-            mv $NAME.manifest $2
+            mv $NAME.$FINAL.manifest $2
         fi
 
     elif [[ -f $1 ]]; then
         cat $1 | sha256digest | awk '{print $1}' > $NAME.manifest
-        cat $NAME.manifest | sha256digest | awk '{print $1}'
+        local FINAL=$(cat $NAME.manifest | sha256digest | awk '{print $1}')
+        mv $NAME.manifest $NAME.$FINAL.manifest
+        echo $FINAL
 
         if [[ -z $2 ]]; then
         else
             mkdir -p $2
-            mv $NAME.manifest $2
+            mv $NAME.$FINAL.manifest $2
         fi
 
     elif [[ -z $1 ]]; then
@@ -83,14 +87,14 @@ sign() {
 
         if [ $HASH != "NONE" ]; then
             if [ "$verbose" = true ]; then
-                echo "1. Manifest file $NAME.manifest of PATH content was generated:"
-                echo "HASH = SHA256 $NAME.manifest = $HASH\n"
+                echo "1. Manifest file $NAME.$HASH.manifest of PATH content was generated:"
+                echo "HASH = SHA256 $NAME.$HASH.manifest = $HASH\n"
             fi
 
             WHO="$(whoami)@$(hostname)"
             SIGN=$(solve $HASH)
             if [ "$verbose" = true ]; then
-                echo "2. Your RSA (~/.ssh/id_rsa) signature of the $NAME.manifest SHA256 was created:"
+                echo "2. Your RSA (~/.ssh/id_rsa) signature of the $NAME.$HASH.manifest SHA256 was created:"
                 echo "SIGNATURE(b64sig:b64key) = solve HASH = $SIGN\n"
             fi
             SIGN=$(echo -n "$WHO," && echo "$SIGN")
@@ -114,15 +118,23 @@ sign() {
                 echo "you can verify the sigining integrity by the verify command from (pip install ident) package."
             fi
 
-            # Do you want to save the hash to blockchain?
-            echo "\n1. Computed '$NAME.manifest' file of provided folder or file '$target' to $NAME.sig folder \n     and used its hash ($HASH) to name the signatures file.\n"
-            echo "2. RSA-signed that hash, and appended base64-coded (Signature:Pubkey) pair \n     to the end of the signatures file: $FILE\n"
-            echo "3. Obtained the final hash $SHA of the signatures file, \n     and saved it in the name of transactions file: $TXFILE\n"
+            # echo "\n1. Computed '$NAME.$HASH.manifest' file of provided folder or file '$target' to $NAME.sig folder \n     and used its hash ($HASH) to name the signatures file.\n"
+            # echo "2. RSA-signed that hash, and appended base64-coded (Signature:Pubkey) pair \n     to the end of the signatures file: $FILE\n"
+            # echo "3. Obtained the final hash $SHA of the signatures file, \n     and saved it in the name of transactions file: $TXFILE\n"
+            echo "Directory '$NAME.sig' created. [done]"
+            echo " - [done] computing .manifest file of '$NAME' directory => $HASH"
+            echo " - [done] signing its SHA256 digest with your RSA key, and creating line '$WHO,base64(signature):base64(pubkey)'"
+            echo " - [done] appending it as a new line to the corresponding .sign file"
+            echo " - [done] computing sha256sum of the .sign file => $SHA"
+            echo " - [done] creating the corresponding .tx file."
+
+            echo "\nResulting hash: $SHA"
 
             #ls .
-            l $NAME.sig*
+            # l $NAME.sig*
 
-            echo -n "\nDo you want now to store this hash of signatures file to a blockchain\n     and append the resulting transaction to the transactions file?: [y/N=wait others append to .sign file] "
+            # Do you want to save the hash to blockchain?
+            echo -n "\nDo you want to store this hash to a blockchain\n     and append the transaction ID to the .tx file above?: [y/N=wait others append to .sign file] "
             read saveit
 
             if [[ -z $saveit ]]; then
