@@ -123,8 +123,7 @@ sign() {
                 if [ "$chain" = "1" ]; then
                     local result=$(solana config set --url https://api.mainnet-beta.solana.com)
                     local address=$(solana address)
-                    # local tx=$(solana transfer --allow-unfunded-recipient --with-memo $SHA $address 0.0)
-                    local tx="abc"
+                    local tx=$(solana transfer --allow-unfunded-recipient --with-memo $SHA $address 0.0)
                     local txid=${tx##*: }
                     echo "\nThe hash $SHA"
                     echo "was saved to transaction:"
