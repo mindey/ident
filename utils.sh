@@ -115,6 +115,9 @@ sign() {
             if [[ -z $ifirst ]]; then
                 folder=""
             else
+                if [ "$ifirst" = "y" ]; then
+                    ifirst="Y"
+                fi
                 if [ "$ifirst" = "Y" ]; then
                     echo -n "Give a name to folder to store all results: "
                     read folder
@@ -142,7 +145,7 @@ sign() {
 
                 echo "Not saving for now. Hash value: $SHA"
 
-            elif [ "$saveit" = "Y" ]; then
+            elif [ "$saveit" = "Y" ] || [ "$saveit" = "y" ]; then
 
                 echo "Choose a blockchain from the ones below:"
                 echo " - [1] Solana (mainnet)"
@@ -150,22 +153,26 @@ sign() {
                 read chain
 
                 if [ -z "$chain" ]; then
-                  echo "No chain selected. Skipping. You can manually save it by bsave MSG"
-                fi
-
-                if [ "$chain" = "1" ]; then
-                    # 1. Solana Mainnet #
-                    local result=$(solana config set --url https://api.mainnet-beta.solana.com)
-                    local address=$(solana address)
-                    local tx=$(solana transfer --allow-unfunded-recipient --with-memo $SHA $address 0.0)
-                    local txid=${tx##*: }
-                    echo "\nThe hash $SHA"
-                    echo "saved to transaction:"
-                    echo "  https://solscan.io/tx/$txid"
+                  echo "No chain selected. Skipping."
                 else
-                    echo "Chosen chain isn't supported. Quitting. .sign hash value: $SHA"
+                    if [ "$chain" = "1" ]; then
+                        # 1. Solana Mainnet #
+                        local result=$(solana config set --url https://api.mainnet-beta.solana.com)
+                        local address=$(solana address)
+                        local tx=$(solana transfer --allow-unfunded-recipient --with-memo $SHA $address 0.0)
+                        local txid=${tx##*: }
+                        echo "\nThe hash $SHA"
+                        echo "was saved to transaction:"
+                        echo "->  https://solscan.io/tx/$txid"
+                        if [[ -z $folder ]]; then
+                            echo "sol:$txid" >> ./tx
+                        else
+                            echo "sol:$txid" >> $folder/tx
+                        fi
+                    else
+                        echo "Chosen chain isn't supported. Quitting. .sign hash value: $SHA"
+                    fi
                 fi
-
             fi
 
         else
