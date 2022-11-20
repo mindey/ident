@@ -161,7 +161,7 @@ sign() {
                     echo "->  https://solscan.io/tx/$txid"
                     echo "sol:$txid" >> $TXFILE
                 else
-                    echo "Chosen chain isn't supported. Quitting. .sign hash value: $SHA"
+                    echo "Chosen chain isn't supported. Quitting."
                 fi
             fi
 
