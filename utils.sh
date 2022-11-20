@@ -22,7 +22,7 @@ solve() {
 }
 
 dhash() {
-    # SHA256 hashing directory or file .manifest
+    # SHA256 hashing directory or file $1.manifest, and maybe moving to a folder $2
     if [[ -d $1 ]]; then
         local NAME=$(basename $1)
         # Note: https://worklifenotes.com/2020/03/05/get-sha256-hash-on-a-directory/
@@ -32,9 +32,23 @@ dhash() {
             dir=$1; find "$dir" -type f -exec sha256sum {} \; | awk '{print $1}' | LC_ALL=C sort -d > $NAME.manifest
         fi
         cat $NAME.manifest | sha256digest | awk '{print $1}'
+
+        if [[ -z $2 ]]; then
+        else
+            mkdir -p $2
+            mv $NAME.manifest $2
+        fi
+
     elif [[ -f $1 ]]; then
         cat $1 | sha256digest | awk '{print $1}' > $NAME.manifest
         cat $NAME.manifest | sha256digest | awk '{print $1}'
+
+        if [[ -z $2 ]]; then
+        else
+            mkdir -p $2
+            mv $NAME.manifest $2
+        fi
+
     elif [[ -z $1 ]]; then
         echo "NONE"
     else
@@ -57,18 +71,22 @@ sign() {
       then
         echo "No arguments supplied"
       else
-        local NAME=$(basename $target)
-
         if [ "$verbose" = true ]; then
             echo "0. Path argument was accepted:"
             echo "PATH = $target\n"
         fi
-        HASH=$(dhash $target)
+
+        local NAME=$(basename $target)
+        local FOLDER="$NAME.sig"
+
+        HASH=$(dhash $target $FOLDER)
+
         if [ $HASH != "NONE" ]; then
             if [ "$verbose" = true ]; then
                 echo "1. Manifest file $NAME.manifest of PATH content was generated:"
                 echo "HASH = SHA256 $NAME.manifest = $HASH\n"
             fi
+
             WHO="$(whoami)@$(hostname)"
             SIGN=$(solve $HASH)
             if [ "$verbose" = true ]; then
@@ -76,7 +94,7 @@ sign() {
                 echo "SIGNATURE(b64sig:b64key) = solve HASH = $SIGN\n"
             fi
             SIGN=$(echo -n "$WHO," && echo "$SIGN")
-            FILE=$(echo "$NAME.$HASH.sign")
+            FILE=$(echo "$FOLDER/$NAME.$HASH.sign")
             echo $SIGN >> $FILE
             if [ "$verbose" = true ]; then
                 echo "3. This signature prefixed with $WHO, was added to $NAME.$HASH.sign file."
@@ -87,21 +105,22 @@ sign() {
             fi
 
             # Create $SHA.tx file for storing sha256sum of .sign file
-            TXFILE="$NAME.$WHO.$SHA.tx"
+            TXFILE="$FOLDER/$NAME.$WHO.$SHA.tx"
             touch $TXFILE
 
             if [ "$verbose" = true ]; then
-                echo "\nSaving it in the name of '$TXFILE'."
+                echo "\nSaving it in the name of '$NAME.$WHO.$SHA.tx'."
                 echo "Now, it contains a proof of existence of signatures to be saved to blockchain, but before it"
                 echo "you can verify the sigining integrity by the verify command from (pip install ident) package."
             fi
 
             # Do you want to save the hash to blockchain?
-            echo "\n1. Computed '$NAME.manifest' file of provided folder or file '$target' \n     and used its hash ($HASH) to name the signatures file.\n"
+            echo "\n1. Computed '$NAME.manifest' file of provided folder or file '$target' to $NAME.sig folder \n     and used its hash ($HASH) to name the signatures file.\n"
             echo "2. RSA-signed that hash, and appended base64-coded (Signature:Pubkey) pair \n     to the end of the signatures file: $FILE\n"
             echo "3. Obtained the final hash $SHA of the signatures file, \n     and saved it in the name of transactions file: $TXFILE\n"
 
-            l $NAME.*
+            #ls .
+            l $NAME.sig*
 
             echo -n "\nDo you want now to store this hash of signatures file to a blockchain\n     and append the resulting transaction to the transactions file?: [y/N=wait others append to .sign file] "
             read saveit
