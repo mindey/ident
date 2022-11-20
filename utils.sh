@@ -121,12 +121,12 @@ sign() {
             # echo "\n1. Computed '$NAME.$HASH.manifest' file of provided folder or file '$target' to $NAME.sig folder \n     and used its hash ($HASH) to name the signatures file.\n"
             # echo "2. RSA-signed that hash, and appended base64-coded (Signature:Pubkey) pair \n     to the end of the signatures file: $FILE\n"
             # echo "3. Obtained the final hash $SHA of the signatures file, \n     and saved it in the name of transactions file: $TXFILE\n"
-            echo "Directory '$NAME.sig' created. [done]"
-            echo " - [done] computing .manifest file of '$NAME' directory => $HASH"
-            echo " - [done] signing its SHA256 digest with your RSA key, and creating line '$WHO,base64(signature):base64(pubkey)'"
-            echo " - [done] appending it as a new line to the corresponding .sign file"
-            echo " - [done] computing sha256sum of the .sign file => $SHA"
-            echo " - [done] creating the corresponding .tx file."
+            echo "\nDirectory '$NAME.sig' created:\n"
+            echo " - [done] computed .manifest file of '$NAME' directory, and its SHA256 is => $HASH"
+            echo " - [done] signed that hash with your RSA key, and created line '$WHO,base64(signature):base64(pubkey)'"
+            echo " - [done] appended it as a new line to the corresponding .sign file with that hash in its name"
+            echo " - [done] computed SHA256 of the resulting .sign file => $SHA"
+            echo " - [done] created the corresponding .tx file with that hash in its name."
 
             echo "\nResulting hash: $SHA"
 
