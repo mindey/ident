@@ -33,7 +33,7 @@ dhash() {
         fi
         cat $NAME.manifest | sha256digest | awk '{print $1}'
     elif [[ -f $1 ]]; then
-        cat $1 | sha256digest | awk '{print $1}' > .manifest
+        cat $1 | sha256digest | awk '{print $1}' > $NAME.manifest
         cat $NAME.manifest | sha256digest | awk '{print $1}'
     elif [[ -z $1 ]]; then
         echo "NONE"
@@ -66,13 +66,13 @@ sign() {
         HASH=$(dhash $target)
         if [ $HASH != "NONE" ]; then
             if [ "$verbose" = true ]; then
-                echo "1. Manifest file .manifest of PATH content was generated:"
-                echo "HASH = SHA256 .manifest = $HASH\n"
+                echo "1. Manifest file $NAME.manifest of PATH content was generated:"
+                echo "HASH = SHA256 $NAME.manifest = $HASH\n"
             fi
             WHO="$(whoami)@$(hostname)"
             SIGN=$(solve $HASH)
             if [ "$verbose" = true ]; then
-                echo "2. Your RSA (~/.ssh/id_rsa) signature of the .manifest SHA256 was created:"
+                echo "2. Your RSA (~/.ssh/id_rsa) signature of the $NAME.manifest SHA256 was created:"
                 echo "SIGNATURE(b64sig:b64key) = solve HASH = $SIGN\n"
             fi
             SIGN=$(echo -n "$WHO," && echo "$SIGN")
